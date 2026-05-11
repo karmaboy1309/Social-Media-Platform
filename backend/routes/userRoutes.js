@@ -6,9 +6,14 @@ const {
   followUser,
   unfollowUser,
 } = require('../controllers/userController');
+const { protect } = require('../middleware/auth');
 
-router.route('/:id').get(getProfile).put(updateProfile);
-router.put('/:id/follow', followUser);
-router.put('/:id/unfollow', unfollowUser);
+// ── Public Routes ──
+router.get('/:id', getProfile);
+
+// ── Protected Routes (must be logged in) ──
+router.put('/:id', protect, updateProfile);
+router.put('/:id/follow', protect, followUser);
+router.put('/:id/unfollow', protect, unfollowUser);
 
 module.exports = router;
