@@ -6,10 +6,14 @@ const {
   logout,
   getMe,
 } = require('../controllers/authController');
+const { protect } = require('../middleware/auth');
 
+// ── Public Routes ──
 router.post('/register', register);
 router.post('/login', login);
-router.post('/logout', logout);
-router.get('/me', getMe);
+
+// ── Protected Routes (require JWT token) ──
+router.get('/me', protect, getMe);
+router.post('/logout', protect, logout);
 
 module.exports = router;
