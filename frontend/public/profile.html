@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="User profile page — Vibe Social Media Platform" />
+  <title>Profile — Vibe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/profile.css" />
+</head>
+<body>
+
+  <!-- ═══════════ Animated Background ═══════════ -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════ Navigation ═══════════ -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Vibe</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="feed.html">Feed</a></li>
+        <li><a href="profile.html" class="active">Profile</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="nav-user" id="navUser"></span>
+        <a href="#" class="btn btn-ghost" id="logoutBtn">Log Out</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ Profile Section ═══════════ -->
+  <main class="profile-page">
+    <div class="profile-container">
+
+      <!-- Cover Image -->
+      <div class="profile-cover" id="profileCover">
+        <div class="cover-gradient"></div>
+      </div>
+
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="profile-avatar-wrap">
+          <img src="" alt="Profile" class="profile-avatar" id="profileAvatar" />
+          <button class="avatar-upload-btn" id="avatarUploadBtn" title="Change photo">📷</button>
+          <input type="file" id="avatarInput" accept="image/*" hidden />
+        </div>
+
+        <div class="profile-info">
+          <div class="profile-name-row">
+            <h1 class="profile-fullname" id="profileFullName">Loading...</h1>
+            <span class="profile-verified" id="verifiedBadge" style="display:none">✓</span>
+          </div>
+          <p class="profile-username" id="profileUsername">@...</p>
+          <p class="profile-bio" id="profileBio"></p>
+          <p class="profile-joined" id="profileJoined"></p>
+        </div>
+
+        <button class="btn btn-primary profile-edit-btn" id="editProfileBtn" style="display:none">
+          Edit Profile
+        </button>
+        <button class="btn btn-outline profile-follow-btn" id="followBtn" style="display:none">
+          Follow
+        </button>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="profile-stats">
+        <div class="profile-stat" id="postsStatBtn">
+          <span class="profile-stat-number" id="postCount">0</span>
+          <span class="profile-stat-label">Posts</span>
+        </div>
+        <div class="profile-stat" id="followersStatBtn">
+          <span class="profile-stat-number" id="followersCount">0</span>
+          <span class="profile-stat-label">Followers</span>
+        </div>
+        <div class="profile-stat" id="followingStatBtn">
+          <span class="profile-stat-number" id="followingCount">0</span>
+          <span class="profile-stat-label">Following</span>
+        </div>
+      </div>
+
+      <!-- Posts Grid (placeholder) -->
+      <div class="profile-posts" id="profilePosts">
+        <div class="empty-posts">
+          <span class="empty-icon">📝</span>
+          <p>No posts yet</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══════════ Edit Profile Modal ═══════════ -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Edit Profile</h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <form class="modal-form" id="editProfileForm">
+        <div class="form-group">
+          <label for="editFullName">Full Name</label>
+          <input type="text" id="editFullName" maxlength="50" placeholder="Your full name" />
+          <span class="char-count"><span id="nameCharCount">0</span>/50</span>
+        </div>
+        <div class="form-group">
+          <label for="editUsername">Username</label>
+          <div class="input-prefix">
+            <span class="prefix">@</span>
+            <input type="text" id="editUsername" maxlength="30" placeholder="username" />
+          </div>
+          <span class="char-count"><span id="usernameCharCount">0</span>/30</span>
+        </div>
+        <div class="form-group">
+          <label for="editBio">Bio</label>
+          <textarea id="editBio" maxlength="160" rows="3" placeholder="Tell us about yourself..."></textarea>
+          <span class="char-count"><span id="bioCharCount">0</span>/160</span>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="cancelEdit">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+        </div>
+        <p class="form-message" id="formMessage"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════ Followers/Following Modal ═══════════ -->
+  <div class="modal-overlay" id="listModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="listModalTitle">Followers</h2>
+        <button class="modal-close" id="listModalClose">✕</button>
+      </div>
+      <div class="modal-user-list" id="modalUserList">
+        <p class="empty-list">No users to show</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/profile.js"></script>
+</body>
+</html>
