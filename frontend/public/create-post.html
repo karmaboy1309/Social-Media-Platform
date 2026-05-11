@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create a new post — Vibe Social Media Platform" />
+  <title>Create Post — Vibe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/upload.css" />
+</head>
+<body>
+
+  <!-- ═══════════ Animated Background ═══════════ -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════ Navigation ═══════════ -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Vibe</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="nav-user" id="navUser"></span>
+        <a href="#" class="btn btn-ghost" id="logoutBtn">Log Out</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ Create Post Section ═══════════ -->
+  <main class="upload-page">
+    <div class="upload-container">
+
+      <div class="upload-header">
+        <h1 class="upload-title">Create <span class="gradient-text">Post</span></h1>
+        <p class="upload-subtitle">Share something with your community</p>
+      </div>
+
+      <form class="post-form" id="postForm">
+        <!-- Author Info -->
+        <div class="post-author" id="postAuthor">
+          <img src="" alt="" class="author-avatar" id="authorAvatar" />
+          <div>
+            <span class="author-name" id="authorName">Loading...</span>
+            <span class="author-handle" id="authorHandle">@...</span>
+          </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="post-content-wrap">
+          <textarea
+            id="postContent"
+            class="post-textarea"
+            placeholder="What's on your mind?"
+            maxlength="2200"
+            rows="4"
+          ></textarea>
+          <span class="content-char-count">
+            <span id="charCount">0</span>/2200
+          </span>
+        </div>
+
+        <!-- Image Upload Area -->
+        <div class="image-upload-area" id="imageUploadArea">
+          <input type="file" id="imageInput" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" hidden />
+
+          <!-- Drop Zone (shown when no image selected) -->
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-icon">🖼️</div>
+            <p class="drop-zone-text">Drag & drop an image or <span class="drop-zone-link">browse</span></p>
+            <p class="drop-zone-hint">JPEG, PNG, GIF, WebP — Max 5MB</p>
+          </div>
+
+          <!-- Image Preview (shown after image selected) -->
+          <div class="image-preview" id="imagePreview" style="display:none">
+            <img src="" alt="Preview" class="preview-img" id="previewImg" />
+            <div class="preview-overlay">
+              <button type="button" class="preview-remove" id="removeImage" title="Remove image">✕</button>
+            </div>
+            <div class="preview-info" id="previewInfo"></div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="post-actions">
+          <div class="post-tools">
+            <button type="button" class="tool-btn" id="addImageBtn" title="Add image">
+              🖼️ <span>Photo</span>
+            </button>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" id="publishBtn" disabled>
+            Publish Post
+          </button>
+        </div>
+
+        <p class="form-message" id="formMessage"></p>
+      </form>
+
+    </div>
+  </main>
+
+  <script src="js/upload.js"></script>
+</body>
+</html>
