@@ -2,6 +2,7 @@
   <img src="https://img.icons8.com/nolan/128/1A6DFF/C822FF/network.png" alt="Vibe Logo" width="100"/>
   
   # ◈ Vibe — Modern Social Media Platform
+
   
   **A full-stack, robust, and highly aesthetic social media platform built from the ground up.**
 
