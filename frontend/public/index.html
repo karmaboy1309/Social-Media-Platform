@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Connect, share, and discover — a modern social media platform for everyone." />
+  <title>Vibe — Social Media Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════ Animated Background ═══════════ -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════ Navigation ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Vibe</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-ghost" id="loginBtn">Log In</a>
+        <a href="#" class="btn btn-primary" id="signupBtn">Sign Up Free</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ Hero Section ═══════════ -->
+  <header class="hero" id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">🚀 Now in Public Beta</div>
+        <h1 class="hero-title">
+          Share Your World.<br />
+          <span class="gradient-text">Find Your Vibe.</span>
+        </h1>
+        <p class="hero-subtitle">
+          A next-generation social platform where authentic connections thrive.
+          Share moments, spark conversations, and build communities that matter.
+        </p>
+        <div class="hero-cta">
+          <a href="#" class="btn btn-primary btn-lg" id="heroSignup">
+            Get Started — It's Free
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#features" class="btn btn-outline btn-lg">
+            Explore Features
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number" data-target="12000">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Active Users</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number" data-target="45000">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Posts Shared</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+            <span class="stat-label">Satisfaction</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="mock-header">
+              <div class="mock-avatar"></div>
+              <div class="mock-name-group">
+                <div class="mock-name"></div>
+                <div class="mock-handle"></div>
+              </div>
+              <div class="mock-follow-btn">Follow</div>
+            </div>
+            <div class="mock-image"></div>
+            <div class="mock-actions">
+              <span class="mock-action">♥ 2.4k</span>
+              <span class="mock-action">💬 89</span>
+              <span class="mock-action">↗ Share</span>
+            </div>
+            <div class="mock-caption"></div>
+            <div class="mock-caption short"></div>
+
+            <div class="mock-header" style="margin-top:16px">
+              <div class="mock-avatar alt"></div>
+              <div class="mock-name-group">
+                <div class="mock-name"></div>
+                <div class="mock-handle"></div>
+              </div>
+            </div>
+            <div class="mock-caption"></div>
+            <div class="mock-caption short"></div>
+            <div class="mock-caption shorter"></div>
+          </div>
+        </div>
+        <div class="floating-card card-1">
+          <span class="card-emoji">🔥</span>
+          <span class="card-text">Trending Now</span>
+        </div>
+        <div class="floating-card card-2">
+          <span class="card-emoji">💬</span>
+          <span class="card-text">New Message</span>
+        </div>
+        <div class="floating-card card-3">
+          <span class="card-emoji">❤️</span>
+          <span class="card-text">+248 Likes</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ Features Section ═══════════ -->
+  <section class="features" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">Features</span>
+        <h2 class="section-title">Everything You Need to <span class="gradient-text">Connect</span></h2>
+        <p class="section-subtitle">Powerful tools designed to make social media feel personal again.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">📸</div>
+          <h3>Rich Media Sharing</h3>
+          <p>Share photos, videos, and stories with stunning quality. Express yourself with creative tools and filters.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">💬</div>
+          <h3>Real-Time Messaging</h3>
+          <p>Connect instantly with friends through lightning-fast encrypted messaging. Group chats, reactions, and more.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">🌐</div>
+          <h3>Community Spaces</h3>
+          <p>Create or join communities around shared interests. Moderate, collaborate, and grow together.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">🔒</div>
+          <h3>Privacy First</h3>
+          <p>Your data belongs to you. Granular privacy controls, end-to-end encryption, and transparent policies.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">🎯</div>
+          <h3>Smart Feed</h3>
+          <p>An algorithm that respects your time. See posts from people you care about, not just engagement bait.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">🎨</div>
+          <h3>Custom Profiles</h3>
+          <p>Stand out with fully customizable profiles. Themes, layouts, and widgets to make your page uniquely yours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ Community Section ═══════════ -->
+  <section class="community" id="community">
+    <div class="section-container">
+      <div class="community-grid">
+        <div class="community-content">
+          <span class="section-tag">Community</span>
+          <h2 class="section-title">Built for <span class="gradient-text">Real People</span></h2>
+          <p class="community-text">
+            We believe social media should bring people together, not drive them apart.
+            Vibe is designed around meaningful interactions — no vanity metrics, no dark patterns.
+          </p>
+          <ul class="check-list">
+            <li><span class="check">✓</span> No ads in your feed — ever</li>
+            <li><span class="check">✓</span> Chronological timeline option</li>
+            <li><span class="check">✓</span> Open-source moderation tools</li>
+            <li><span class="check">✓</span> Creator monetization built-in</li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-lg">Join the Community</a>
+        </div>
+        <div class="community-visual">
+          <div class="avatar-grid">
+            <div class="avatar-bubble a1"></div>
+            <div class="avatar-bubble a2"></div>
+            <div class="avatar-bubble a3"></div>
+            <div class="avatar-bubble a4"></div>
+            <div class="avatar-bubble a5"></div>
+            <div class="avatar-bubble a6"></div>
+            <div class="avatar-bubble a7"></div>
+            <div class="avatar-bubble a8"></div>
+            <div class="avatar-bubble a9"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ Testimonials ═══════════ -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-tag">Testimonials</span>
+        <h2 class="section-title">Loved by <span class="gradient-text">Thousands</span></h2>
+        <p class="section-subtitle">See what our community members have to say.</p>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Finally a social platform that doesn't feel like it's trying to manipulate me. Vibe is refreshing, authentic, and genuinely fun."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar t1"></div>
+            <div>
+              <div class="testimonial-name">Sarah Chen</div>
+              <div class="testimonial-role">Content Creator</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card featured">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The community spaces feature is incredible. I've connected with people who share my exact niche interests. Nothing else compares."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar t2"></div>
+            <div>
+              <div class="testimonial-name">Marcus Rivera</div>
+              <div class="testimonial-role">Developer & Writer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Privacy-first approach with no compromises on UX. Vibe proves you can have both. Moved my entire audience here."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar t3"></div>
+            <div>
+              <div class="testimonial-name">Aisha Patel</div>
+              <div class="testimonial-role">Digital Strategist</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA Section ═══════════ -->
+  <section class="cta-section">
+    <div class="section-container">
+      <div class="cta-card">
+        <h2 class="cta-title">Ready to Find Your <span class="gradient-text">Vibe</span>?</h2>
+        <p class="cta-text">Join thousands of people who chose a better social experience. Free forever, no credit card required.</p>
+        <div class="cta-actions">
+          <a href="#" class="btn btn-white btn-lg">Create Your Account</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ Footer ═══════════ -->
+  <footer class="footer">
+    <div class="section-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <span class="logo-icon">◈</span>
+            <span class="logo-text">Vibe</span>
+          </a>
+          <p class="footer-desc">A next-generation social platform where authentic connections thrive.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Product</h4>
+          <a href="#">Features</a>
+          <a href="#">Pricing</a>
+          <a href="#">Changelog</a>
+          <a href="#">Roadmap</a>
+        </div>
+        <div class="footer-links">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+          <a href="#">Licenses</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Vibe. All rights reserved.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="GitHub">⌂</a>
+          <a href="#" aria-label="Discord">◉</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
