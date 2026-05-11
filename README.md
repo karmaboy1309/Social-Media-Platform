@@ -24,15 +24,19 @@ Unlike heavily abstracted platforms, Vibe's backend is meticulously crafted usin
 
 ## 📸 Application Showcase
 
-### 1. Landing Page & Hero Interface
-![Landing Page](./assets/landing.png)
-> *The landing page features a stunning, dark-mode glassmorphism design with animated background orbs, floating interaction cards, and dynamic statistics counters. It is fully responsive and visually striking.*
+### 1. Landing Page Hero Interface
+![Landing Page Hero](./assets/hero.png)
+> *The hero section of the landing page features a stunning, dark-mode glassmorphism design with animated background orbs, floating interaction cards, and dynamic statistics counters. It is fully responsive and visually striking.*
 
-### 2. Seamless Authentication Modals
+### 2. Powerful Features Overview
+![Features Section](./assets/features.png)
+> *A clean, grid-based layout highlighting the platform's core capabilities. Each feature card utilizes subtle hover animations and distinct, vibrant icons to create a premium browsing experience.*
+
+### 3. Seamless Authentication Modals
 ![Create Account](./assets/signup.png)
 > *Authentication is handled via sleek, asynchronous modals directly on the landing page. This allows users to Sign Up or Log In without jarring full-page reloads, providing a modern Single Page Application (SPA) feel while maintaining raw HTML/JS performance.*
 
-### 3. Dynamic User Profiles
+### 4. Dynamic User Profiles
 ![User Profile](./assets/profile.png)
 > *The user profile dashboard showcases a customizable avatar (handled securely via backend Multer disk-storage), interactive stat counters for posts and followers, and an optimistic UI for profile editing.*
 
