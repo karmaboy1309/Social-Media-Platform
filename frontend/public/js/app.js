@@ -56,6 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
   featureCards.forEach(card => cardObs.observe(card));
 
+  // ═══════════ Auth Logic ═══════════
+  const API_BASE = 'http://localhost:5000/api';
+
+  // If already logged in, redirect 'Log In' button to profile
+  if (localStorage.getItem('token')) {
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) {
+      loginBtn.textContent = 'Go to Profile';
+      loginBtn.href = 'profile.html';
+      loginBtn.id = ''; // remove id to bypass modal logic
+    }
+  }
+
   // ── Smooth scroll for anchor links ──
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
@@ -72,20 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
-  // ═══════════ Auth Logic ═══════════
-
-  const API_BASE = 'http://localhost:5000/api';
-
-  // If already logged in, redirect 'Log In' button to profile
-  if (localStorage.getItem('token')) {
-    const loginBtn = document.getElementById('loginBtn');
-    if (loginBtn) {
-      loginBtn.textContent = 'Go to Profile';
-      loginBtn.href = 'profile.html';
-      loginBtn.id = ''; // remove id to bypass modal logic
-    }
-  }
 
   const loginModal = document.getElementById('loginModal');
   const signupModal = document.getElementById('signupModal');
