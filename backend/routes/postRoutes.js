@@ -5,6 +5,7 @@ const {
   getPosts,
   getPost,
   deletePost,
+  editPost,
   likePost,
 } = require('../controllers/postController');
 const { protect, optionalAuth } = require('../middleware/auth');
@@ -17,6 +18,7 @@ router.get('/:id', optionalAuth, getPost);
 // ── Protected Routes (must be logged in) ──
 router.post('/', protect, upload.single('image'), handleMulterError, createPost);
 router.delete('/:id', protect, deletePost);
+router.put('/:id', protect, editPost);
 router.put('/:id/like', protect, likePost);
 
 module.exports = router;
