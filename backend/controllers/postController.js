@@ -84,9 +84,14 @@ exports.getPosts = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const total = await Post.countDocuments();
+    const filter = {};
+    if (req.query.user) {
+      filter.author = req.query.user;
+    }
 
-    const posts = await Post.find()
+    const total = await Post.countDocuments(filter);
+
+    const posts = await Post.find(filter)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)

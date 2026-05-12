@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Global Feed — Vibe Social Media Platform" />
+  <title>Feed — Vibe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/profile.css" />
+  <style>
+    .feed-container { max-width: 600px; margin: 100px auto 60px; padding: 0 20px; }
+    .feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .feed-title { font-size: 1.8rem; font-weight: 800; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ Animated Background ═══════════ -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════ Navigation ═══════════ -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Vibe</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="feed.html" class="active">Feed</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="nav-user" id="navUser"></span>
+        <a href="create-post.html" class="btn btn-primary" style="padding: 8px 16px;">Create Post</a>
+        <a href="#" class="btn btn-ghost" id="logoutBtn">Log Out</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ Feed Section ═══════════ -->
+  <main class="feed-page">
+    <div class="feed-container">
+      <div class="feed-header">
+        <h1 class="feed-title">Latest <span class="gradient-text">Vibes</span></h1>
+      </div>
+
+      <!-- Posts Grid -->
+      <div class="profile-posts" id="feedPosts">
+        <div class="empty-posts">
+          <span class="empty-icon">⏳</span>
+          <p>Loading posts...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/feed.js"></script>
+</body>
+</html>

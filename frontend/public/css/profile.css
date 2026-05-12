@@ -184,6 +184,94 @@
   margin-bottom: 12px;
 }
 
+/* Post Cards */
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.post-author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-secondary);
+}
+
+.post-author-info {
+  flex: 1;
+}
+
+.post-author-name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.post-author-handle {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.post-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.post-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.post-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.post-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.post-action-btn:hover { color: var(--text-primary); }
+.post-action-btn.liked { color: #f43f5e; }
+.post-action-btn.delete-btn { margin-left: auto; color: var(--text-secondary); }
+.post-action-btn.delete-btn:hover { color: #f43f5e; }
+
 /* ══════════ Modal ══════════ */
 .modal-overlay {
   position: fixed;

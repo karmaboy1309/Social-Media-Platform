@@ -195,9 +195,9 @@ async function handlePublish(e) {
     $('charCount').textContent = '0';
     removeSelectedImage();
 
-    // Redirect to profile after short delay
+    // Redirect to feed after short delay
     setTimeout(() => {
-      window.location.href = 'profile.html';
+      window.location.href = 'feed.html';
     }, 1500);
 
   } catch (error) {
