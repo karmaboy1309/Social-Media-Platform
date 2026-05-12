@@ -151,6 +151,63 @@ exports.getPost = async (req, res) => {
 };
 
 // ──────────────────────────────────────────
+// @desc    Edit a post (update caption only)
+// @route   PUT /api/posts/:id
+// @access  Private (author only)
+// ──────────────────────────────────────────
+exports.editPost = async (req, res) => {
+  try {
+    const { content } = req.body;
+    
+    if (!content || content.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Post content is required',
+      });
+    }
+
+    if (content.length > 2200) {
+      return res.status(400).json({
+        success: false,
+        message: 'Post content cannot exceed 2200 characters',
+      });
+    }
+
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({
+        success: false,
+        message: 'Post not found',
+      });
+    }
+
+    // Only author can edit
+    if (post.author.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: 'You can only edit your own posts',
+      });
+    }
+
+    post.content = content.trim();
+    await post.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Post updated successfully',
+      post
+    });
+  } catch (error) {
+    console.error('EditPost Error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error editing post',
+    });
+  }
+};
+
+// ──────────────────────────────────────────
 // @desc    Delete a post
 // @route   DELETE /api/posts/:id
 // @access  Private (author only)
