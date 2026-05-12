@@ -142,7 +142,6 @@ function renderPosts(posts) {
             <span>💬</span>
             <span>Comment</span>
           </button>
-          ${deleteBtn}
         </div>
         <div class="comments-section" id="comments-section-${post._id}">
           <div class="comment-input-area">
