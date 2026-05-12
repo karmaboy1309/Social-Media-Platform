@@ -103,16 +103,100 @@ function renderPosts(posts) {
             <span id="like-icon-${post._id}">${likeIcon}</span>
             <span id="like-count-${post._id}">${post.likes.length}</span>
           </button>
-          <button class="post-action-btn">
+          <button class="post-action-btn" onclick="toggleComments('${post._id}')">
             <span>💬</span>
-            <span>${post.comments.length}</span>
+            <span>Comment</span>
           </button>
           ${deleteBtn}
+        </div>
+        <div class="comments-section" id="comments-section-${post._id}">
+          <div class="comment-input-area">
+            <input type="text" id="comment-input-${post._id}" placeholder="Write a comment..." onkeypress="if(event.key === 'Enter') submitComment('${post._id}')" />
+            <button onclick="submitComment('${post._id}')">Post</button>
+          </div>
+          <div class="comments-list" id="comments-list-${post._id}"></div>
         </div>
       </div>
     `;
   }).join('');
 }
+
+// ══════════ Comments Functions ══════════
+window.toggleComments = async (postId) => {
+  const section = $(`comments-section-${postId}`);
+  if (!section.classList.contains('active')) {
+    section.classList.add('active');
+    await loadComments(postId);
+  } else {
+    section.classList.remove('active');
+  }
+};
+
+window.loadComments = async (postId) => {
+  const list = $(`comments-list-${postId}`);
+  list.innerHTML = '<p class="loading-text">Loading comments...</p>';
+  try {
+    const data = await apiFetch(`/comments/post/${postId}`);
+    renderCommentsList(postId, data.comments);
+  } catch (error) {
+    list.innerHTML = '<p class="error-text">Failed to load comments</p>';
+  }
+};
+
+window.renderCommentsList = (postId, comments) => {
+  const list = $(`comments-list-${postId}`);
+  if (!comments || comments.length === 0) {
+    list.innerHTML = '<p class="no-comments">No comments yet. Be the first to comment!</p>';
+    return;
+  }
+  
+  list.innerHTML = comments.map(c => {
+    const isOwner = currentUser && c.author._id === currentUser._id;
+    return `
+      <div class="comment-item" id="comment-${c._id}">
+        <div class="comment-header">
+          <strong>${c.author.fullName || c.author.username}</strong>
+          <span class="comment-date">${new Date(c.createdAt).toLocaleDateString()}</span>
+        </div>
+        <div class="comment-body">${c.content}</div>
+        ${isOwner ? `<button class="comment-delete-btn" onclick="deleteComment('${c._id}', '${postId}')">Delete</button>` : ''}
+      </div>
+    `;
+  }).join('');
+};
+
+window.submitComment = async (postId) => {
+  if (!currentUser) return alert('Please log in to comment');
+  
+  const input = $(`comment-input-${postId}`);
+  const content = input.value.trim();
+  if (!content) return;
+  
+  input.disabled = true;
+  try {
+    await apiFetch('/comments', {
+      method: 'POST',
+      body: JSON.stringify({ postId, content })
+    });
+    input.value = '';
+    await loadComments(postId);
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    input.disabled = false;
+    input.focus();
+  }
+};
+
+window.deleteComment = async (commentId, postId) => {
+  if (!confirm('Delete this comment?')) return;
+  try {
+    await apiFetch(`/comments/${commentId}`, { method: 'DELETE' });
+    await loadComments(postId);
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
 // ══════════ Global Functions ══════════
 window.toggleLike = async (postId) => {
