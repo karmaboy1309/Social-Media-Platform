@@ -80,9 +80,18 @@ function renderPosts(posts) {
     const isLiked = currentUser && post.likes.some(id => id === currentUser._id);
     const likeIcon = isLiked ? '❤️' : '🤍';
     
-    const deleteBtn = (currentUser && post.author._id === currentUser._id)
-      ? `<button class="post-action-btn delete-btn" onclick="deletePost('${post._id}')" title="Delete post">🗑️</button>`
-      : '';
+    let optionsMenu = '';
+    if (currentUser && post.author._id === currentUser._id) {
+      optionsMenu = `
+        <div class="post-options-wrap">
+          <button class="post-options-btn" onclick="event.stopPropagation(); togglePostOptions('${post._id}')">⋮</button>
+          <div class="post-dropdown" id="post-dropdown-${post._id}">
+            <button class="dropdown-item" onclick="event.stopPropagation(); startEditPost('${post._id}')">✏️ Edit Caption</button>
+            <button class="dropdown-item danger" onclick="event.stopPropagation(); confirmDeletePost('${post._id}')">🗑️ Delete Post</button>
+          </div>
+        </div>
+      `;
+    }
 
     return `
       <div class="post-card" id="post-${post._id}">
@@ -93,9 +102,17 @@ function renderPosts(posts) {
             <span class="post-author-handle">@${post.author.username}</span>
           </div>
           <span class="post-date">${new Date(post.createdAt).toLocaleDateString()}</span>
+          ${optionsMenu}
         </div>
         <div class="post-content">
-          <p>${post.content}</p>
+          <p id="post-caption-${post._id}">${post.content}</p>
+          <div class="edit-caption-wrap" id="edit-wrap-${post._id}">
+            <textarea class="edit-caption-textarea" id="edit-input-${post._id}">${post.content}</textarea>
+            <div class="edit-caption-actions">
+              <button class="btn btn-ghost btn-sm" onclick="cancelEditPost('${post._id}')">Cancel</button>
+              <button class="btn btn-primary btn-sm" onclick="submitEditPost('${post._id}')">Save</button>
+            </div>
+          </div>
           ${postImg}
         </div>
         <div class="post-actions-bar">
@@ -107,7 +124,6 @@ function renderPosts(posts) {
             <span>💬</span>
             <span>Comment</span>
           </button>
-          ${deleteBtn}
         </div>
         <div class="comments-section" id="comments-section-${post._id}">
           <div class="comment-input-area">
@@ -213,11 +229,11 @@ window.toggleLike = async (postId) => {
 };
 
 window.deletePost = async (postId) => {
-  if (!confirm('Are you sure you want to delete this post?')) return;
   try {
     await apiFetch(`/posts/${postId}`, { method: 'DELETE' });
     const postEl = $(`post-${postId}`);
     postEl.style.opacity = '0';
+    postEl.style.transform = 'scale(0.95)';
     setTimeout(() => {
       postEl.remove();
       if ($('feedPosts').children.length === 0) renderPosts([]);
@@ -226,6 +242,79 @@ window.deletePost = async (postId) => {
     alert(error.message);
   }
 };
+
+window.togglePostOptions = (postId) => {
+  document.querySelectorAll('.post-dropdown').forEach(d => {
+    if (d.id !== `post-dropdown-${postId}`) d.classList.remove('show');
+  });
+  $(`post-dropdown-${postId}`)?.classList.toggle('show');
+};
+
+window.startEditPost = (postId) => {
+  $(`post-dropdown-${postId}`)?.classList.remove('show');
+  $(`post-caption-${postId}`).style.display = 'none';
+  $(`edit-wrap-${postId}`).classList.add('active');
+};
+
+window.cancelEditPost = (postId) => {
+  $(`post-caption-${postId}`).style.display = 'block';
+  $(`edit-wrap-${postId}`).classList.remove('active');
+  $(`edit-input-${postId}`).value = $(`post-caption-${postId}`).textContent;
+};
+
+window.submitEditPost = async (postId) => {
+  const content = $(`edit-input-${postId}`).value.trim();
+  if (!content) return alert('Caption cannot be empty');
+  
+  try {
+    const data = await apiFetch(`/posts/${postId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ content })
+    });
+    $(`post-caption-${postId}`).textContent = data.post.content;
+    cancelEditPost(postId);
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+window.confirmDeletePost = (postId) => {
+  let modal = $('deleteConfirmModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'deleteConfirmModal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal" style="max-width: 400px; text-align: center; padding: 30px;">
+        <div style="font-size: 3rem; margin-bottom: 16px;">🗑️</div>
+        <h3 style="margin-bottom: 12px; font-size: 1.2rem;">Delete Post?</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 24px;">This action cannot be undone. Are you sure you want to permanently delete this post?</p>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+          <button class="btn btn-ghost" onclick="closeDeleteModal()">Cancel</button>
+          <button class="btn btn-primary" style="background: #f43f5e;" id="confirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  
+  $(`post-dropdown-${postId}`)?.classList.remove('show');
+  modal.classList.add('active');
+  
+  $('confirmDeleteBtn').onclick = () => {
+    deletePost(postId);
+    closeDeleteModal();
+  };
+};
+
+window.closeDeleteModal = () => {
+  $('deleteConfirmModal')?.classList.remove('active');
+};
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', () => {
+  document.querySelectorAll('.post-dropdown').forEach(d => d.classList.remove('show'));
+});
 
 // ══════════ Event Listeners ══════════
 function setupEventListeners() {
