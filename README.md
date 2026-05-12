@@ -55,15 +55,16 @@ Unlike heavily abstracted platforms, Vibe's backend is meticulously crafted usin
 - **Avatar Uploads:** Handled via `multer` disk-storage with strict mimetype and size (5MB) validations.
 
 ### 📝 Post & Feed Engine
-- **Rich Media Posts:** Create posts with text and image uploads.
-- **Social Interactions:** Like/Unlike toggles and commenting system.
-- **Paginated Feed:** Backend feed generation with deep population of author and comment user data.
+- **Rich Media Posts:** Create posts with text and image uploads via `FormData`.
+- **Global Feed & User Timelines:** Dedicated `feed.html` dynamically fetching all posts sorted by latest. Profile pages load filtered user-specific posts instantly.
+- **Social Interactions:** Optimistic Like/Unlike system preventing duplicate database entries, plus commenting logic.
+- **Backend Pagination & Population:** Secure feed generation with deep Mongoose population of author data.
 
 ### 🎨 Frontend Aesthetics
 - **Glassmorphism UI:** Blurred backgrounds, glowing orbs, and dark-mode by default.
-- **Asynchronous Modals:** Seamless Login/Register modals right on the landing page without full page reloads.
-- **Drag & Drop Uploads:** Custom drag-and-drop file uploader with `FileReader` image previews.
-- **Optimistic UI:** Like counters and Follow states update instantly before the API request finishes.
+- **Instagram-Inspired Cards:** Responsive `.post-card` layout featuring robust author details, formatted dates, and full-width images.
+- **Micro-Animations:** Custom `@keyframes heartPop` for a dynamic, satisfying Like button interaction without full page reloads.
+- **Drag & Drop Uploads:** Custom drag-and-drop file uploader with live `FileReader` image previews.
 
 ---
 
