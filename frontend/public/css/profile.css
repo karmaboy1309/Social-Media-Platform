@@ -269,6 +269,17 @@
 
 .post-action-btn:hover { color: var(--text-primary); }
 .post-action-btn.liked { color: #f43f5e; }
+.post-action-btn.liked span:first-child {
+  display: inline-block;
+  animation: heartPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
 .post-action-btn.delete-btn { margin-left: auto; color: var(--text-secondary); }
 .post-action-btn.delete-btn:hover { color: #f43f5e; }
 
