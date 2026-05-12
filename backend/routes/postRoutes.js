@@ -6,7 +6,6 @@ const {
   getPost,
   deletePost,
   likePost,
-  commentOnPost,
 } = require('../controllers/postController');
 const { protect, optionalAuth } = require('../middleware/auth');
 const { upload, handleMulterError } = require('../config/upload');
@@ -19,6 +18,5 @@ router.get('/:id', optionalAuth, getPost);
 router.post('/', protect, upload.single('image'), handleMulterError, createPost);
 router.delete('/:id', protect, deletePost);
 router.put('/:id/like', protect, likePost);
-router.post('/:id/comment', protect, commentOnPost);
 
 module.exports = router;
