@@ -490,8 +490,13 @@ async function handleFollow() {
       profileUser.followers = profileUser.followers.filter(
         (f) => (f._id || f) !== currentUser._id
       );
+      if (currentUser.following) {
+        currentUser.following = currentUser.following.filter(f => (f._id || f) !== profileUser._id);
+      }
     } else {
       profileUser.followers.push({ _id: currentUser._id, username: currentUser.username });
+      if (!currentUser.following) currentUser.following = [];
+      currentUser.following.push({ _id: profileUser._id });
     }
 
     // Re-count
@@ -519,6 +524,18 @@ function openListModal(title, users) {
           ? `${API_BASE.replace('/api', '')}/uploads/${u.profileImage}`
           : `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c5ce7&color=fff&size=88&bold=true`;
 
+        let followBtnHtml = '';
+        if (currentUser && currentUser._id !== u._id) {
+          const isFollowing = currentUser.following && currentUser.following.some(f => (f._id || f) === u._id);
+          followBtnHtml = `
+            <button class="btn ${isFollowing ? 'btn-outline following' : 'btn-primary'} btn-sm"
+              style="padding: 6px 12px; font-size: 0.8rem; margin-left: auto;"
+              onclick="event.stopPropagation(); handleListFollow('${u._id}', this)">
+              ${isFollowing ? 'Following' : 'Follow'}
+            </button>
+          `;
+        }
+
         return `
           <div class="user-list-item" onclick="window.location.href='profile.html?user=${u._id}'">
             <img src="${img}" alt="${name}" class="user-list-avatar" />
@@ -526,6 +543,7 @@ function openListModal(title, users) {
               <div class="user-list-name">${name}</div>
               <div class="user-list-handle">@${handle}</div>
             </div>
+            ${followBtnHtml}
           </div>
         `;
       })
@@ -535,6 +553,49 @@ function openListModal(title, users) {
   $('listModal').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
+
+window.handleListFollow = async (userId, btn) => {
+  if (!currentUser) return;
+  const isFollowing = btn.classList.contains('following');
+  const action = isFollowing ? 'unfollow' : 'follow';
+  
+  try {
+    btn.disabled = true;
+    await apiFetch(`/users/${userId}/${action}`, { method: 'PUT' });
+    
+    // Toggle button UI
+    if (isFollowing) {
+      btn.classList.remove('following', 'btn-outline');
+      btn.classList.add('btn-primary');
+      btn.textContent = 'Follow';
+      if (currentUser.following) {
+        currentUser.following = currentUser.following.filter(f => (f._id || f) !== userId);
+      }
+    } else {
+      btn.classList.add('following', 'btn-outline');
+      btn.classList.remove('btn-primary');
+      btn.textContent = 'Following';
+      if (!currentUser.following) currentUser.following = [];
+      currentUser.following.push({ _id: userId });
+    }
+    
+    // If the userId is the profileUser._id, update the main profile stats
+    if (profileUser && userId === profileUser._id) {
+        if (isFollowing) {
+            profileUser.followers = profileUser.followers.filter(f => (f._id || f) !== currentUser._id);
+        } else {
+            profileUser.followers.push({ _id: currentUser._id, username: currentUser.username });
+        }
+        profileUser.followersCount = profileUser.followers.length;
+        renderProfile();
+    }
+    
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    btn.disabled = false;
+  }
+};
 
 function closeListModal() {
   $('listModal').classList.remove('active');
