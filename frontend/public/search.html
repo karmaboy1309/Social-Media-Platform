@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Search — Vibe Social Media Platform" />
+  <title>Search — Vibe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/profile.css" />
+  <style>
+    .search-container { max-width: 800px; margin: 100px auto 60px; padding: 0 20px; }
+    .search-header { text-align: center; margin-bottom: 40px; }
+    .search-title { font-size: 2rem; font-weight: 800; margin-bottom: 16px; }
+    
+    .search-input-wrapper {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .search-input {
+      width: 100%;
+      padding: 18px 24px 18px 56px;
+      font-size: 1.1rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      color: var(--text-primary);
+      transition: all 0.3s;
+      outline: none;
+      font-family: var(--font);
+    }
+    .search-input:focus {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 20px rgba(168,85,247,0.2);
+      background: rgba(255,255,255,0.08);
+    }
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    /* Tabs */
+    .search-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .search-tab {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .search-tab:hover { color: var(--text-primary); }
+    .search-tab.active { color: var(--text-primary); }
+    .search-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 3px 3px 0 0;
+    }
+
+    /* Results */
+    .results-section { display: none; }
+    .results-section.active { display: block; animation: fadeIn 0.4s ease-out; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* User Cards in search */
+    .users-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .search-user-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      transition: transform 0.3s, background 0.3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .search-user-card:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      border-color: rgba(108,92,231,0.3);
+    }
+    .search-user-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 16px;
+      object-fit: cover;
+      background: var(--bg-secondary);
+    }
+    .search-user-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .search-user-handle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .search-status {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      padding: 40px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Vibe</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="feed.html">Feed</a></li>
+        <li><a href="search.html" class="active">Search</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="nav-user" id="navUser"></span>
+        <a href="create-post.html" class="btn btn-primary" style="padding: 8px 16px;">Create Post</a>
+        <a href="#" class="btn btn-ghost" id="logoutBtn">Log Out</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="search-page">
+    <div class="search-container">
+      <div class="search-header">
+        <h1 class="search-title">Discover <span class="gradient-text">Vibes</span></h1>
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search users, posts, or keywords..." autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="search-tabs" id="searchTabs" style="display:none;">
+        <button class="search-tab active" data-target="usersSection">Users (<span id="usersCount">0</span>)</button>
+        <button class="search-tab" data-target="postsSection">Posts (<span id="postsCount">0</span>)</button>
+      </div>
+
+      <div id="searchStatus" class="search-status">
+        Type to start searching...
+      </div>
+
+      <div id="usersSection" class="results-section active">
+        <div class="users-grid" id="usersResults"></div>
+      </div>
+
+      <div id="postsSection" class="results-section">
+        <div class="profile-posts" id="postsResults"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/search.js"></script>
+</body>
+</html>
