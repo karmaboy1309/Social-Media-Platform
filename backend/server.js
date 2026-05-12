@@ -38,7 +38,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/comments', require('./routes/commentRoutes'));
-
+app.use('/api/search', require('./routes/searchRoutes'));
 // Root route — API overview
 app.get('/', (req, res) => {
   res.json({
@@ -52,6 +52,7 @@ app.get('/', (req, res) => {
       posts: '/api/posts',
       users: '/api/users',
       comments: '/api/comments',
+      search: '/api/search',
     },
   });
 });
