@@ -95,8 +95,7 @@ exports.getPosts = async (req, res) => {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .populate('author', 'username fullName profileImage')
-      .populate('comments.user', 'username fullName profileImage');
+      .populate('author', 'username fullName profileImage');
 
     res.status(200).json({
       success: true,
@@ -123,8 +122,7 @@ exports.getPosts = async (req, res) => {
 exports.getPost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
-      .populate('author', 'username fullName profileImage')
-      .populate('comments.user', 'username fullName profileImage');
+      .populate('author', 'username fullName profileImage');
 
     if (!post) {
       return res.status(404).json({
@@ -240,61 +238,3 @@ exports.likePost = async (req, res) => {
   }
 };
 
-// ──────────────────────────────────────────
-// @desc    Add comment to a post
-// @route   POST /api/posts/:id/comment
-// @access  Private
-// ──────────────────────────────────────────
-exports.commentOnPost = async (req, res) => {
-  try {
-    const { text } = req.body;
-
-    if (!text || text.trim().length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: 'Comment text is required',
-      });
-    }
-
-    if (text.length > 500) {
-      return res.status(400).json({
-        success: false,
-        message: 'Comment cannot exceed 500 characters',
-      });
-    }
-
-    const post = await Post.findById(req.params.id);
-
-    if (!post) {
-      return res.status(404).json({
-        success: false,
-        message: 'Post not found',
-      });
-    }
-
-    const comment = {
-      user: req.user._id,
-      text: text.trim(),
-    };
-
-    post.comments.unshift(comment);
-    await post.save();
-
-    // Populate the comment's user info for the response
-    const updatedPost = await Post.findById(req.params.id)
-      .populate('author', 'username fullName profileImage')
-      .populate('comments.user', 'username fullName profileImage');
-
-    res.status(201).json({
-      success: true,
-      message: 'Comment added',
-      comments: updatedPost.comments,
-    });
-  } catch (error) {
-    console.error('CommentOnPost Error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Server error adding comment',
-    });
-  }
-};
