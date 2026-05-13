@@ -59,6 +59,18 @@ app.get('/', (req, res) => {
 });
 
 // ──────────────────────────────────────────
+// 4.5. Serve Frontend in Production
+// ──────────────────────────────────────────
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static(path.join(__dirname, '../frontend/public')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend/public', 'index.html'));
+  });
+}
+
+// ──────────────────────────────────────────
 // 5. Error Handler (must be after routes)
 // ──────────────────────────────────────────
 app.use(errorHandler);

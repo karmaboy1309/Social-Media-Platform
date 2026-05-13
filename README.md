@@ -1,181 +1,122 @@
-<div align="center">
-  <img src="https://img.icons8.com/nolan/128/1A6DFF/C822FF/network.png" alt="Vibe Logo" width="100"/>
-  
-  # ◈ Vibe — Modern Social Media Platform
+# Vibe — Social Media Platform
 
-  
-  **A full-stack, robust, and highly aesthetic social media platform built from the ground up.**
+![Vibe Banner](https://via.placeholder.com/1200x400/12121a/a855f7?text=Vibe+Social+Media+Platform)
 
-  [![Node.js](https://img.shields.io/badge/Node.js-18.x-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-  [![Express.js](https://img.shields.io/badge/Express.js-4.x-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-  [![MongoDB](https://img.shields.io/badge/MongoDB-Latest-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-  [![Vanilla JS](https://img.shields.io/badge/Vanilla_JS-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-</div>
+Vibe is a modern, high-performance, and fully responsive full-stack social media application. Built with a pristine dark-themed UI (glassmorphism), real-time WebSockets, and a robust RESTful API, Vibe allows users to connect, share moments, and engage with community content effortlessly.
 
----
+## 🌟 Features
 
-## 📖 Overview
+- **User Authentication**: Secure JWT-based login, registration, and persistent sessions.
+- **Real-Time Notifications & Feed**: Socket.IO integration powers live updates for likes, comments, and follows without page reloads.
+- **Rich Media Posts**: Upload images seamlessly alongside text (Multer).
+- **Interactive Feed**: Infinite scrolling, live dynamic likes (HeartPop animations), and real-time nested comments.
+- **Search & Discovery**: Regex-powered global search for users and posts with debounced live suggestions.
+- **Profile Customization**: Update bio, avatar, and username with full validation.
+- **Beautiful UI/UX**: Professional dark mode, custom loading skeletons (shimmer), smooth toast notifications, and micro-animations.
 
-**Vibe** is a fully custom, modern social media platform designed with a focus on high-performance backend architecture and stunning "glassmorphism" frontend aesthetics. 
+## 🛠 Tech Stack
 
-Unlike heavily abstracted platforms, Vibe's backend is meticulously crafted using **Node.js, Express, and MongoDB**, featuring custom JWT authentication, advanced file-upload handling via Multer, and robust error management. The frontend is built completely in **Vanilla CSS & JS** to ensure zero-bloat, lightning-fast rendering, and smooth CSS animations.
+- **Frontend**: Vanilla HTML5, CSS3 (Custom Variables, Flexbox/Grid, Animations), Vanilla JavaScript (ES6+), Socket.IO Client.
+- **Backend**: Node.js, Express.js.
+- **Database**: MongoDB (Mongoose ORM).
+- **Real-Time**: Socket.IO.
+- **Authentication**: JSON Web Tokens (JWT), bcryptjs.
+- **File Uploads**: Multer.
 
----
+## 📸 Screenshots
 
-## 📸 Application Showcase
+| Home/Landing Page | User Feed |
+| --- | --- |
+| ![Landing Page](https://via.placeholder.com/500x300/12121a/6c5ce7?text=Landing+Page) | ![User Feed](https://via.placeholder.com/500x300/12121a/6c5ce7?text=User+Feed) |
 
-### 1. Landing Page Hero Interface
-![Landing Page Hero](./assets/hero.png)
-> *The hero section of the landing page features a stunning, dark-mode glassmorphism design with animated background orbs, floating interaction cards, and dynamic statistics counters. It is fully responsive and visually striking.*
+| Global Search | User Profile |
+| --- | --- |
+| ![Search](https://via.placeholder.com/500x300/12121a/6c5ce7?text=Global+Search) | ![Profile](https://via.placeholder.com/500x300/12121a/6c5ce7?text=User+Profile) |
 
-### 2. Powerful Features Overview
-![Features Section](./assets/features.png)
-> *A clean, grid-based layout highlighting the platform's core capabilities. Each feature card utilizes subtle hover animations and distinct, vibrant icons to create a premium browsing experience.*
+*(Note: Replace placeholder images with actual project screenshots before publishing).*
 
-### 3. Seamless Authentication Modals
-![Create Account](./assets/signup.png)
-> *Authentication is handled via sleek, asynchronous modals directly on the landing page. This allows users to Sign Up or Log In without jarring full-page reloads, providing a modern Single Page Application (SPA) feel while maintaining raw HTML/JS performance.*
+## 🚀 Installation & Local Setup
 
-### 4. Dynamic User Profiles
-![User Profile](./assets/profile.png)
-> *The user profile dashboard showcases a customizable avatar (handled securely via backend Multer disk-storage), interactive stat counters for posts and followers, and an optimistic UI for profile editing.*
+### Prerequisites
+- Node.js (v18+)
+- MongoDB (Local instance or MongoDB Atlas cluster)
 
----
-
-## ✨ Key Features & Completed Work
-
-### 🛡️ Authentication & Security
-- **JWT Session Management:** Secure `protect` and `optionalAuth` middleware for granular route protection.
-- **Password Cryptography:** BCrypt integration (12 salt rounds) implemented directly via Mongoose Pre-Save hooks.
-- **Data Validation:** Strict Regex validations for usernames and emails; duplicate account prevention.
-
-### 👤 User Profile System
-- **Dynamic Profiles:** Custom URL routing by `_id` or `username`.
-- **Social Graph Engine:** Robust Follow / Unfollow logic with self-follow prevention and optimistic UI updates.
-- **Avatar Uploads:** Handled via `multer` disk-storage with strict mimetype and size (5MB) validations.
-
-### 📝 Post & Feed Engine
-- **Rich Media Posts:** Create posts with text and image uploads via `FormData`.
-- **Global Feed & User Timelines:** Dedicated `feed.html` dynamically fetching all posts sorted by latest. Profile pages load filtered user-specific posts instantly.
-- **Social Interactions:** Optimistic Like/Unlike system preventing duplicate database entries, plus commenting logic.
-- **Backend Pagination & Population:** Secure feed generation with deep Mongoose population of author data.
-
-### 🎨 Frontend Aesthetics
-- **Glassmorphism UI:** Blurred backgrounds, glowing orbs, and dark-mode by default.
-- **Instagram-Inspired Cards:** Responsive `.post-card` layout featuring robust author details, formatted dates, and full-width images.
-- **Micro-Animations:** Custom `@keyframes heartPop` for a dynamic, satisfying Like button interaction without full page reloads.
-- **Drag & Drop Uploads:** Custom drag-and-drop file uploader with live `FileReader` image previews.
-
----
-
-## 🛠️ Technology Stack
-
-| Domain | Technology | Description |
-|---|---|---|
-| **Frontend** | HTML5, CSS3, Vanilla JS | Zero-dependency, lightweight, custom glassmorphism design |
-| **Backend** | Node.js, Express.js | High-performance RESTful API infrastructure |
-| **Database** | MongoDB, Mongoose | NoSQL schema design, virtuals, and DB event listeners |
-| **Authentication**| JSON Web Tokens (JWT) | Stateless authentication |
-| **Cryptography** | bcryptjs | Secure password hashing |
-| **File Handling** | Multer | Multipart/form-data parsing for image uploads |
-
----
-
-## 📂 Project Architecture
-
-```text
-📦 Social-Media-Platform
- ┣ 📂 backend/
- ┃ ┣ 📂 config/        # DB connection, Env Validator, Multer config
- ┃ ┣ 📂 controllers/   # Route logic (auth, user, post)
- ┃ ┣ 📂 middleware/    # JWT Auth and Central Error Handler
- ┃ ┣ 📂 models/        # Mongoose Schemas (User, Post)
- ┃ ┣ 📂 routes/        # Express routers
- ┃ ┣ 📂 uploads/       # Local storage for avatars and post images
- ┃ ┣ 📜 server.js      # App entry point
- ┃ ┗ 📜 package.json
- ┣ 📂 frontend/
- ┃ ┗ 📂 public/
- ┃   ┣ 📂 css/         # Modular stylesheets (style, profile, upload)
- ┃   ┣ 📂 js/          # API integration logic (app, profile, upload)
- ┃   ┣ 📜 index.html       # Landing Page + Auth Modals
- ┃   ┣ 📜 profile.html     # User Profile Page
- ┃   ┗ 📜 create-post.html # Drag & Drop Post Creator
- ┗ 📜 README.md
+### 1. Clone the repository
+```bash
+git clone https://github.com/yourusername/vibe-social-media.git
+cd vibe-social-media
 ```
 
----
-
-## 🚀 Installation & Setup
-
-Want to run Vibe locally? Follow these steps:
-
-### 1. Prerequisites
-- [Node.js](https://nodejs.org/en/) (v16 or higher)
-- [MongoDB](https://www.mongodb.com/) (Running locally or via MongoDB Atlas)
-
-### 2. Clone & Install
+### 2. Install Dependencies
 ```bash
-# Clone the repository
-git clone https://github.com/karmaboy1309/Social-Media-Platform.git
-cd Social-Media-Platform
-
-# Navigate to backend and install dependencies
-cd backend
 npm install
 ```
+*(This runs the root installation script which automatically navigates into `backend/` and installs all necessary packages).*
 
 ### 3. Environment Variables
-Create a `.env` file inside the `backend/` directory:
+Create a `.env` file in the `backend/` directory and add the following keys:
 ```env
-PORT=5000
 NODE_ENV=development
-MONGO_URI=mongodb://127.0.0.1:27017/social_media_platform
-JWT_SECRET=your_super_secret_jwt_key_here
-MAX_FILE_SIZE=5242880
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_jwt_key
+JWT_EXPIRES_IN=30d
 ```
 
-### 4. Run the Platform
-Open two terminal windows:
-
-**Terminal 1 (Backend API):**
+### 4. Run the Application (Development Mode)
 ```bash
 cd backend
 npm run dev
 ```
-
-**Terminal 2 (Frontend Server):**
-```bash
-cd frontend/public
-npx serve -p 3000
-```
-*Now visit `http://localhost:3000` in your browser!*
+The backend will run on `http://localhost:5000` and the frontend UI can be accessed by opening `frontend/public/index.html` in your browser (or using Live Server).
 
 ---
 
-## 📡 Core API Routes
+## 🔌 API Routes
 
-### Authentication (`/api/auth`)
-- `POST /register` - Create account
-- `POST /login` - Authenticate and receive JWT
-- `GET /me` - Get current logged-in user
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user profile (Protected)
 
-### Users (`/api/users`)
-- `GET /:id` - Get user profile and post count
-- `PUT /:id` - Update bio/name (Protected)
-- `PUT /:id/avatar` - Upload profile picture (Protected)
-- `PUT /:id/follow` - Follow user (Protected)
-- `PUT /:id/unfollow` - Unfollow user (Protected)
+### Posts
+- `GET /api/posts` - Get all posts (Supports Pagination `?page=1&limit=5`)
+- `POST /api/posts` - Create a post (Protected, supports `multipart/form-data`)
+- `PUT /api/posts/:id` - Edit post caption (Protected)
+- `DELETE /api/posts/:id` - Delete post (Protected)
+- `PUT /api/posts/:id/like` - Toggle like on a post (Protected)
 
-### Posts (`/api/posts`)
-- `GET /` - Get paginated feed
-- `POST /` - Create post with optional image (Protected)
-- `DELETE /:id` - Delete post and cleanup media (Protected)
-- `PUT /:id/like` - Toggle like status (Protected)
-- `POST /:id/comment` - Add comment (Protected)
+### Comments
+- `GET /api/comments/post/:postId` - Get comments for a post
+- `POST /api/comments` - Add a comment (Protected)
+- `DELETE /api/comments/:id` - Delete a comment (Protected)
+
+### Users & Profiles
+- `GET /api/users/:id` - Get user profile
+- `PUT /api/users/:id` - Update user profile (Protected)
+- `PUT /api/users/:id/avatar` - Update profile image (Protected)
+- `PUT /api/users/:id/follow` - Follow a user (Protected)
+- `PUT /api/users/:id/unfollow` - Unfollow a user (Protected)
+
+### Search
+- `GET /api/search?q=query` - Global search across users and posts
 
 ---
 
-<div align="center">
-  <p>Built with ❤️ by Karmaboy1309</p>
-</div>
+## 🌍 Deployment
+
+This repository is strictly configured for monolithic deployment on platforms like **Render**, **Railway**, or **Vercel**.
+
+### Deploying to Render / Railway
+1. Push this repository to GitHub.
+2. Create a new **Web Service** on Render/Railway.
+3. Connect your GitHub repository.
+4. **Configuration Settings:**
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+5. **Environment Variables**: Add your `MONGO_URI`, `JWT_SECRET`, and set `NODE_ENV=production`.
+6. Deploy!
+   - *In production mode, the Express backend automatically serves the `frontend/public` directory as static files. No separate frontend hosting is required.*
+
+## 📄 License
+This project is licensed under the MIT License.

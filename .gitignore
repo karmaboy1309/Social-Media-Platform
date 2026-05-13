@@ -1,3 +1,7 @@
 node_modules/
 .env
 *.log
+
+# Ignore uploaded media
+backend/uploads/*
+!backend/uploads/.gitkeep
