@@ -28,7 +28,8 @@ exports.globalSearch = async (req, res) => {
       $or: [{ username: { $regex: regex } }, { fullName: { $regex: regex } }],
     })
       .select('username fullName profileImage isVerified')
-      .limit(20);
+      .limit(20)
+      .lean();
 
     // Search posts by content
     const posts = await Post.find({
@@ -36,7 +37,8 @@ exports.globalSearch = async (req, res) => {
     })
       .populate('author', 'username fullName profileImage isVerified')
       .sort({ createdAt: -1 })
-      .limit(20);
+      .limit(20)
+      .lean();
 
     res.status(200).json({
       success: true,

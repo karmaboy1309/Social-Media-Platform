@@ -21,12 +21,14 @@ exports.getProfile = async (req, res) => {
       user = await User.findById(id)
         .select('-password')
         .populate('followers', 'username fullName profileImage')
-        .populate('following', 'username fullName profileImage');
+        .populate('following', 'username fullName profileImage')
+        .lean();
     } else {
       user = await User.findOne({ username: id.toLowerCase() })
         .select('-password')
         .populate('followers', 'username fullName profileImage')
-        .populate('following', 'username fullName profileImage');
+        .populate('following', 'username fullName profileImage')
+        .lean();
     }
 
     if (!user) {

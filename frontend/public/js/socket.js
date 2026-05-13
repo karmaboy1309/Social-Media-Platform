@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!token) return; // Only connect if authenticated
 
   // Connect to Socket.IO server
-  socket = io('http://localhost:5000');
+  socket = io();
 
   socket.on('connect', async () => {
     let userId;
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       userId = window.currentUser._id;
     } else {
       try {
-        const res = await fetch('http://localhost:5000/api/auth/me', {
+        const res = await fetch('/api/auth/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();
