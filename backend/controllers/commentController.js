@@ -1,5 +1,6 @@
 const Comment = require('../models/Comment');
 const Post = require('../models/Post');
+const socketModule = require('../socket');
 
 // ──────────────────────────────────────────
 // @desc    Add comment to a post
@@ -35,6 +36,22 @@ exports.addComment = async (req, res) => {
       'author',
       'username fullName profileImage'
     );
+
+    const io = socketModule.getIO();
+    // Notify all clients to update comments for this post
+    io.emit('new_comment', {
+      postId,
+      comment: populatedComment
+    });
+
+    // Notify post author
+    if (post.author.toString() !== req.user._id.toString()) {
+      io.to(post.author.toString()).emit('new_notification', {
+        type: 'comment',
+        message: `@${req.user.username} commented on your post.`,
+        postId: post._id
+      });
+    }
 
     res.status(201).json({
       success: true,
@@ -99,6 +116,12 @@ exports.deleteComment = async (req, res) => {
     }
 
     await Comment.findByIdAndDelete(req.params.id);
+
+    const io = socketModule.getIO();
+    io.emit('delete_comment', {
+      postId: comment.post,
+      commentId: comment._id
+    });
 
     res.status(200).json({
       success: true,
