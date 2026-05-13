@@ -1,6 +1,10 @@
+<p align="center">
+  <img src="assets/logo.png" width="180" alt="Vibe Logo">
+</p>
+
 # Vibe — Social Media Platform
 
-![Vibe Banner](https://via.placeholder.com/1200x400/12121a/a855f7?text=Vibe+Social+Media+Platform)
+![Vibe Banner](assets/banner.png)
 
 Vibe is a modern, high-performance, and fully responsive full-stack social media application. Built with a pristine dark-themed UI (glassmorphism), real-time WebSockets, and a robust RESTful API, Vibe allows users to connect, share moments, and engage with community content effortlessly.
 
@@ -27,13 +31,13 @@ Vibe is a modern, high-performance, and fully responsive full-stack social media
 
 | Home/Landing Page | User Feed |
 | --- | --- |
-| ![Landing Page](https://via.placeholder.com/500x300/12121a/6c5ce7?text=Landing+Page) | ![User Feed](https://via.placeholder.com/500x300/12121a/6c5ce7?text=User+Feed) |
+| ![Landing Page](assets/features.png) | ![User Feed](assets/feed.png) |
 
 | Global Search | User Profile |
 | --- | --- |
-| ![Search](https://via.placeholder.com/500x300/12121a/6c5ce7?text=Global+Search) | ![Profile](https://via.placeholder.com/500x300/12121a/6c5ce7?text=User+Profile) |
+| ![Search](assets/search.png) | ![Profile](assets/hero.png) |
 
-*(Note: Replace placeholder images with actual project screenshots before publishing).*
+*(Professional assets generated and integrated into the project documentation).*
 
 ## 🚀 Installation & Local Setup
 
