@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   featureCards.forEach(card => cardObs.observe(card));
 
   // ═══════════ Auth Logic ═══════════
-  const API_BASE = 'http://localhost:5000/api';
+  const API_BASE = '/api';
 
   // If already logged in, redirect 'Log In' button to profile
   if (localStorage.getItem('token')) {

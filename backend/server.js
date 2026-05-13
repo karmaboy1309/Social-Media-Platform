@@ -2,6 +2,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
 
 // ──────────────────────────────────────────
 // 1. Load Environment Variables (FIRST)
@@ -22,11 +26,32 @@ const config = validateEnv();
 const app = express();
 
 // ──────────────────────────────────────────
-// 3. Core Middleware
+// 3. Core & Security Middleware
 // ──────────────────────────────────────────
+
+// Set security headers
+app.use(helmet({
+  contentSecurityPolicy: false, // disabled for local dev / easy external image loading
+  crossOriginEmbedderPolicy: false
+}));
+
+// Enable CORS
 app.use(cors());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 mins
+  max: 1000 // limit each IP to 1000 requests per windowMs
+});
+app.use(limiter);
+
+// Body parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Sanitize data
+app.use(mongoSanitize()); // Prevent NoSQL injection
+app.use(xss()); // Prevent XSS attacks
 
 // Serve uploaded files statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
