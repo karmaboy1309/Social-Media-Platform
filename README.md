@@ -37,7 +37,6 @@ Vibe is a modern, high-performance, and fully responsive full-stack social media
 | --- | --- |
 | ![Search](assets/search.png) | ![Profile](assets/hero.png) |
 
-*(Professional assets generated and integrated into the project documentation).*
 
 ## 🚀 Installation & Local Setup
 
