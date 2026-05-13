@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentUser = res.user;
     $('navUser').textContent = `@${currentUser.username}`;
     
-    await loadFeed();
+    await loadFeed(true);
   } catch {
     localStorage.removeItem('token');
     window.location.href = 'index.html';
@@ -41,25 +41,49 @@ async function apiFetch(endpoint, options = {}) {
   return data;
 }
 
+// Pagination State
+let currentPage = 1;
+let hasMore = true;
+let isLoading = false;
+
 // ══════════ Load Feed ══════════
-async function loadFeed() {
+async function loadFeed(isInitial = false) {
+  if (isLoading || (!hasMore && !isInitial)) return;
+
+  if (isInitial) {
+    currentPage = 1;
+    hasMore = true;
+  } else {
+    $('loadingSpinner').style.display = 'block';
+  }
+
+  isLoading = true;
   try {
-    const data = await apiFetch('/posts');
-    renderPosts(data.posts);
+    const data = await apiFetch(`/posts?page=${currentPage}&limit=5`);
+    
+    if (data.posts.length < 5) hasMore = false;
+    
+    renderPosts(data.posts, isInitial);
+    currentPage++;
   } catch (error) {
     console.error('Load feed error:', error);
-    $('feedPosts').innerHTML = `
-      <div class="empty-posts">
-        <p class="form-message error">Failed to load posts</p>
-      </div>`;
+    if (isInitial) {
+      $('feedPosts').innerHTML = `
+        <div class="empty-posts">
+          <p class="form-message error">Failed to load posts</p>
+        </div>`;
+    }
+  } finally {
+    isLoading = false;
+    $('loadingSpinner').style.display = 'none';
   }
 }
 
 // ══════════ Render Posts ══════════
-function renderPosts(posts) {
+function renderPosts(posts, isInitial = false) {
   const container = $('feedPosts');
   
-  if (!posts || posts.length === 0) {
+  if (isInitial && (!posts || posts.length === 0)) {
     container.innerHTML = `
       <div class="empty-posts">
         <span class="empty-icon">🌟</span>
@@ -67,8 +91,10 @@ function renderPosts(posts) {
       </div>`;
     return;
   }
+  
+  if (!isInitial && (!posts || posts.length === 0)) return;
 
-  container.innerHTML = posts.map(post => {
+  const html = posts.map(post => {
     const authorImg = post.author.profileImage === 'default-avatar.png' 
       ? `https://ui-avatars.com/api/?name=${encodeURIComponent(post.author.fullName || post.author.username)}&background=6c5ce7&color=fff&size=88&bold=true`
       : `${API_BASE.replace('/api', '')}/uploads/${post.author.profileImage}`;
@@ -135,6 +161,12 @@ function renderPosts(posts) {
       </div>
     `;
   }).join('');
+  
+  if (isInitial) {
+    container.innerHTML = html;
+  } else {
+    container.insertAdjacentHTML('beforeend', html);
+  }
 }
 
 // ══════════ Comments Functions ══════════
@@ -338,5 +370,12 @@ function setupEventListeners() {
     $('navbar').classList.toggle('menu-open');
     $('navLinks').classList.toggle('active');
     document.querySelector('.nav-actions')?.classList.toggle('active');
+  });
+
+  // Infinite Scroll Trigger
+  window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
+      loadFeed();
+    }
   });
 }

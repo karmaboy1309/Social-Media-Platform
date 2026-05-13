@@ -83,8 +83,18 @@
           <div class="skeleton-text shimmer" style="width: 60%; margin-bottom: 20px;"></div>
         </div>
       </div>
+      
+      <!-- Infinite Scroll Spinner -->
+      <div id="loadingSpinner" style="display: none; text-align: center; padding: 24px 0;">
+        <div style="display: inline-block; width: 32px; height: 32px; border: 3px solid rgba(168,85,247,0.2); border-top-color: var(--accent-2); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+      </div>
+
     </div>
   </main>
+  
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 
   <script src="js/toast.js"></script>
   <script src="js/feed.js"></script>
