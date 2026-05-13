@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const { deleteFile } = require('../config/upload');
+const socketModule = require('../socket');
 
 // ══════════════════════════════════════════════════════
 // Post Controller
@@ -279,6 +280,22 @@ exports.likePost = async (req, res) => {
     }
 
     await post.save();
+
+    // Emit live update to all clients
+    const io = socketModule.getIO();
+    io.emit('like_update', {
+      postId: post._id,
+      likesCount: post.likes.length
+    });
+
+    // Send notification to author if someone else liked it
+    if (!alreadyLiked && post.author.toString() !== userId) {
+      io.to(post.author.toString()).emit('new_notification', {
+        type: 'like',
+        message: `@${req.user.username} liked your post.`,
+        postId: post._id
+      });
+    }
 
     res.status(200).json({
       success: true,
