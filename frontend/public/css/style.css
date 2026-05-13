@@ -286,3 +286,12 @@ img { max-width: 100%; display: block; }
 .toast.warning { border-left: 4px solid #eab308; }
 .toast.info { border-left: 4px solid #06b6d4; }
 
+/* ══════════ Realtime Animations ══════════ */
+.new-comment-flash {
+  animation: highlightFlash 2s ease-out;
+}
+@keyframes highlightFlash {
+  0% { background-color: rgba(168, 85, 247, 0.3); }
+  100% { background-color: transparent; }
+}
+
