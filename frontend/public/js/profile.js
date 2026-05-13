@@ -2,7 +2,7 @@
 // Vibe — Profile Page JavaScript
 // ══════════════════════════════════════════
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 // ── State ──
 let currentUser = null;   // Logged-in user

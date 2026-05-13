@@ -2,8 +2,8 @@
 // Vibe — Create Post / Upload JavaScript
 // ══════════════════════════════════════════
 
-const API_BASE = 'http://localhost:5000/api';
-const UPLOADS_URL = 'http://localhost:5000/uploads';
+const API_BASE = '/api';
+const UPLOADS_URL = '/uploads';
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 

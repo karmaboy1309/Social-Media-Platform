@@ -2,7 +2,7 @@
 // Vibe — Search Page JavaScript
 // ══════════════════════════════════════════
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 let currentUser = null;
 let searchTimeout = null;
 
