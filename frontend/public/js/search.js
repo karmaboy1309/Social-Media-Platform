@@ -206,15 +206,18 @@ window.handleSearchFollow = async (userId, btn) => {
       if (currentUser.following) {
         currentUser.following = currentUser.following.filter(f => (f._id || f) !== userId);
       }
+      if (window.showToast) window.showToast('Unfollowed', 'info');
     } else {
       btn.classList.add('following', 'btn-outline');
       btn.classList.remove('btn-primary');
       btn.textContent = 'Following';
       if (!currentUser.following) currentUser.following = [];
       currentUser.following.push({ _id: userId });
+      if (window.showToast) window.showToast('Following', 'success');
     }
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   } finally {
     btn.disabled = false;
   }
@@ -317,8 +320,10 @@ window.deletePost = async (postId) => {
     setTimeout(() => {
       postEl.remove();
     }, 300);
+    if (window.showToast) window.showToast('Post deleted', 'success');
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 };
 
@@ -352,8 +357,10 @@ window.submitEditPost = async (postId) => {
     });
     $(`post-caption-${postId}`).textContent = data.post.content;
     cancelEditPost(postId);
+    if (window.showToast) window.showToast('Caption updated', 'success');
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 };
 

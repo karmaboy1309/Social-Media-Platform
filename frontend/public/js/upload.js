@@ -123,13 +123,15 @@ function setupEventListeners() {
 function handleFileSelect(file) {
   // Validate type
   if (!ALLOWED_TYPES.includes(file.type)) {
-    showMessage('Only image files (JPEG, PNG, GIF, WebP) are allowed', 'error');
+    if (window.showToast) window.showToast('Only image files (JPEG, PNG, GIF, WebP) are allowed', 'error');
+    else showMessage('Only image files (JPEG, PNG, GIF, WebP) are allowed', 'error');
     return;
   }
 
   // Validate size
   if (file.size > MAX_SIZE) {
-    showMessage('Image must be under 5MB', 'error');
+    if (window.showToast) window.showToast('Image must be under 5MB', 'error');
+    else showMessage('Image must be under 5MB', 'error');
     return;
   }
 
@@ -167,7 +169,8 @@ async function handlePublish(e) {
 
   const content = $('postContent').value.trim();
   if (!content) {
-    showMessage('Please write something for your post', 'error');
+    if (window.showToast) window.showToast('Please write something for your post', 'error');
+    else showMessage('Please write something for your post', 'error');
     return;
   }
 
@@ -188,7 +191,8 @@ async function handlePublish(e) {
       body: formData,
     });
 
-    showMessage('✓ Post published successfully!', 'success');
+    if (window.showToast) window.showToast('Post published successfully!', 'success');
+    else showMessage('✓ Post published successfully!', 'success');
 
     // Reset form
     $('postContent').value = '';
@@ -201,7 +205,8 @@ async function handlePublish(e) {
     }, 1500);
 
   } catch (error) {
-    showMessage(error.message, 'error');
+    if (window.showToast) window.showToast(error.message, 'error');
+    else showMessage(error.message, 'error');
   } finally {
     btn.disabled = false;
     btn.textContent = 'Publish Post';
