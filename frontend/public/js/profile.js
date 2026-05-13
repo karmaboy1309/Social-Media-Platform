@@ -215,7 +215,8 @@ window.submitComment = async (postId) => {
     input.value = '';
     await loadComments(postId);
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   } finally {
     input.disabled = false;
     input.focus();
@@ -228,7 +229,8 @@ window.deleteComment = async (commentId, postId) => {
     await apiFetch(`/comments/${commentId}`, { method: 'DELETE' });
     await loadComments(postId);
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 };
 
@@ -243,7 +245,8 @@ window.toggleLike = async (postId) => {
     if (data.liked) btn.classList.add('liked');
     else btn.classList.remove('liked');
   } catch (error) {
-    console.error('Like error:', error);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else console.error('Like error:', error);
   }
 };
 
@@ -256,11 +259,16 @@ window.deletePost = async (postId) => {
     setTimeout(() => {
       postEl.remove();
       const countEl = $('postCount');
-      if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1);
+      if (countEl) {
+          profileUser.postCount = Math.max(0, (profileUser.postCount || 1) - 1);
+          countEl.textContent = profileUser.postCount;
+      }
       if ($('profilePosts').children.length === 0) renderPosts([]);
     }, 300);
+    if (window.showToast) window.showToast('Post deleted', 'success');
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 };
 
@@ -428,13 +436,12 @@ async function handleSaveProfile(e) {
     currentUser = data.user;
     renderProfile();
 
-    msg.textContent = '✓ Profile updated!';
-    msg.classList.add('success');
-
-    setTimeout(closeEditModal, 1200);
+    if (window.showToast) window.showToast('Profile updated', 'success');
+    closeEditModal();
   } catch (error) {
     msg.textContent = error.message;
     msg.classList.add('error');
+    if (window.showToast) window.showToast(error.message, 'error');
   } finally {
     btn.disabled = false;
     btn.textContent = 'Save Changes';
@@ -492,10 +499,12 @@ async function handleFollow() {
       if (currentUser.following) {
         currentUser.following = currentUser.following.filter(f => (f._id || f) !== profileUser._id);
       }
+      if (window.showToast) window.showToast(`Unfollowed @${profileUser.username}`, 'info');
     } else {
       profileUser.followers.push({ _id: currentUser._id, username: currentUser.username });
       if (!currentUser.following) currentUser.following = [];
       currentUser.following.push({ _id: profileUser._id });
+      if (window.showToast) window.showToast(`Following @${profileUser.username}`, 'success');
     }
 
     // Re-count
@@ -503,7 +512,8 @@ async function handleFollow() {
     renderProfile();
     updateFollowButton();
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 }
 
@@ -570,12 +580,14 @@ window.handleListFollow = async (userId, btn) => {
       if (currentUser.following) {
         currentUser.following = currentUser.following.filter(f => (f._id || f) !== userId);
       }
+      if (window.showToast) window.showToast('Unfollowed', 'info');
     } else {
       btn.classList.add('following', 'btn-outline');
       btn.classList.remove('btn-primary');
       btn.textContent = 'Following';
       if (!currentUser.following) currentUser.following = [];
       currentUser.following.push({ _id: userId });
+      if (window.showToast) window.showToast('Following', 'success');
     }
     
     // If the userId is the profileUser._id, update the main profile stats
@@ -590,7 +602,8 @@ window.handleListFollow = async (userId, btn) => {
     }
     
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   } finally {
     btn.disabled = false;
   }

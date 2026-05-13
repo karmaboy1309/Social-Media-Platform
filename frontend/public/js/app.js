@@ -149,18 +149,26 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error(data.message || 'Login failed');
 
       localStorage.setItem('token', data.token);
-      showMessage('loginMessage', '✓ Success! Redirecting...', 'success');
-      setTimeout(() => { window.location.href = 'profile.html'; }, 1000);
-    } catch (err) {
-      showMessage('loginMessage', err.message, 'error');
-      btn.disabled = false;
+      msgEl.className = 'form-message success';
+      msgEl.textContent = 'Login successful! Redirecting...';
+      if (window.showToast) window.showToast('Login successful!', 'success');
+      setTimeout(() => {
+        window.location.href = 'feed.html';
+      }, 1000);
+    } catch (error) {
+      msgEl.className = 'form-message error';
+      msgEl.textContent = error.message;
+      if (window.showToast) window.showToast(error.message, 'error');
+    } finally {
       btn.textContent = 'Log In';
+      btn.disabled = false;
     }
   });
 
   document.getElementById('signupForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('signupSubmitBtn');
+    const msgEl = document.getElementById('signupMessage');
     btn.disabled = true;
     btn.textContent = 'Creating account...';
 
@@ -179,12 +187,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error(data.message || 'Registration failed');
 
       localStorage.setItem('token', data.token);
-      showMessage('signupMessage', '✓ Account created! Redirecting...', 'success');
-      setTimeout(() => { window.location.href = 'profile.html'; }, 1000);
-    } catch (err) {
-      showMessage('signupMessage', err.message, 'error');
-      btn.disabled = false;
+      msgEl.className = 'form-message success';
+      msgEl.textContent = 'Account created successfully! Redirecting...';
+      if (window.showToast) window.showToast('Account created successfully!', 'success');
+      setTimeout(() => {
+        window.location.href = 'feed.html';
+      }, 1000);
+    } catch (error) {
+      msgEl.className = 'form-message error';
+      msgEl.textContent = error.message;
+      if (window.showToast) window.showToast(error.message, 'error');
+    } finally {
       btn.textContent = 'Sign Up';
+      btn.disabled = false;
     }
   });
 
