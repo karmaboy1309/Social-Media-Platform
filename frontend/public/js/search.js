@@ -68,11 +68,45 @@ function setupEventListeners() {
       return;
     }
 
-    $('searchStatus').style.display = 'block';
-    $('searchStatus').textContent = 'Searching...';
-    $('searchTabs').style.display = 'none';
-    $('usersSection').classList.remove('active');
+    $('searchStatus').style.display = 'none';
+    $('searchTabs').style.display = 'flex';
+    document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector('.search-tab[data-target="usersSection"]').classList.add('active');
+    $('usersSection').classList.add('active');
     $('postsSection').classList.remove('active');
+
+    // Show skeletons
+    $('usersResults').innerHTML = `
+      <div class="search-user-card" style="border-color:transparent">
+        <div class="skeleton-avatar shimmer" style="width:80px; height:80px; margin:0 auto 16px;"></div>
+        <div class="skeleton-text shimmer" style="width:70%; margin:0 auto 8px;"></div>
+        <div class="skeleton-text shimmer" style="width:40%; margin:0 auto;"></div>
+      </div>
+      <div class="search-user-card" style="border-color:transparent">
+        <div class="skeleton-avatar shimmer" style="width:80px; height:80px; margin:0 auto 16px;"></div>
+        <div class="skeleton-text shimmer" style="width:60%; margin:0 auto 8px;"></div>
+        <div class="skeleton-text shimmer" style="width:50%; margin:0 auto;"></div>
+      </div>
+      <div class="search-user-card" style="border-color:transparent">
+        <div class="skeleton-avatar shimmer" style="width:80px; height:80px; margin:0 auto 16px;"></div>
+        <div class="skeleton-text shimmer" style="width:75%; margin:0 auto 8px;"></div>
+        <div class="skeleton-text shimmer" style="width:45%; margin:0 auto;"></div>
+      </div>
+    `;
+    $('postsResults').innerHTML = `
+      <div class="post-card skeleton-card">
+        <div class="post-header">
+          <div class="skeleton-avatar shimmer"></div>
+          <div class="skeleton-text-group">
+            <div class="skeleton-text shimmer" style="width: 120px;"></div>
+            <div class="skeleton-text shimmer" style="width: 80px; height: 10px; margin-top: 8px;"></div>
+          </div>
+        </div>
+        <div class="skeleton-text shimmer" style="width: 100%; margin-bottom: 10px;"></div>
+        <div class="skeleton-text shimmer" style="width: 85%; margin-bottom: 20px;"></div>
+        <div class="skeleton-img shimmer"></div>
+      </div>
+    `;
 
     searchTimeout = setTimeout(() => {
       performSearch(query);
