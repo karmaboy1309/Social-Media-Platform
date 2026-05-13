@@ -209,8 +209,10 @@ window.deleteComment = async (commentId, postId) => {
   try {
     await apiFetch(`/comments/${commentId}`, { method: 'DELETE' });
     await loadComments(postId);
+    if (window.showToast) window.showToast('Comment deleted', 'success');
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 };
 
@@ -223,8 +225,12 @@ window.toggleLike = async (postId) => {
     const btn = $(`like-icon-${postId}`).parentElement;
     if (data.liked) btn.classList.add('liked');
     else btn.classList.remove('liked');
+    
+    // Optional info toast for liked
+    // if (data.liked && window.showToast) window.showToast('Post liked', 'info', 1500);
   } catch (error) {
-    console.error('Like error:', error);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else console.error('Like error:', error);
   }
 };
 
@@ -238,8 +244,10 @@ window.deletePost = async (postId) => {
       postEl.remove();
       if ($('feedPosts').children.length === 0) renderPosts([]);
     }, 300);
+    if (window.showToast) window.showToast('Post deleted', 'success');
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 };
 
@@ -273,8 +281,10 @@ window.submitEditPost = async (postId) => {
     });
     $(`post-caption-${postId}`).textContent = data.post.content;
     cancelEditPost(postId);
+    if (window.showToast) window.showToast('Caption updated', 'success');
   } catch (error) {
-    alert(error.message);
+    if (window.showToast) window.showToast(error.message, 'error');
+    else alert(error.message);
   }
 };
 
