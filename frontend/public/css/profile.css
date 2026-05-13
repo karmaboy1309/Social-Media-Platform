@@ -464,15 +464,31 @@
 .nav-links a.active::after { width: 100%; }
 .nav-user { font-weight: 600; font-size: 0.9rem; color: var(--accent-2); }
 
-/* ── Loading shimmer ── */
+/* ── Loading Skeletons ── */
 @keyframes shimmer {
-  0% { background-position: -400px 0; }
-  100% { background-position: 400px 0; }
+  0% { background-position: -800px 0; }
+  100% { background-position: 800px 0; }
 }
 .shimmer {
-  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+  background: linear-gradient(90deg, var(--bg-card) 25%, rgba(255,255,255,0.08) 50%, var(--bg-card) 75%);
   background-size: 800px 100%;
-  animation: shimmer 1.5s infinite;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.skeleton-text-group { flex: 1; }
+.skeleton-text {
+  height: 14px;
+  border-radius: 4px;
+}
+.skeleton-img {
+  width: 100%;
+  height: 240px;
+  border-radius: var(--radius-sm);
 }
 
 /* ══════════ Responsive ══════════ */
