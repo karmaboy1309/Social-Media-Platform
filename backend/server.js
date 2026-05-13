@@ -11,6 +11,7 @@ dotenv.config();
 const validateEnv = require('./config/validateEnv');
 const { connectDB, disconnectDB } = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
+const socketModule = require('./socket');
 
 // Validate all required env vars before anything else
 const config = validateEnv();
@@ -71,6 +72,9 @@ const startServer = async () => {
     await connectDB();
 
     const server = app.listen(config.PORT, () => {
+      // Initialize Socket.IO
+      socketModule.init(server);
+
       console.log(`
   ╔══════════════════════════════════════════════╗
   ║     🚀 SOCIAL MEDIA PLATFORM API SERVER     ║
