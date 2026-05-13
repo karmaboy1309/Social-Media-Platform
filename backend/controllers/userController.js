@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
+const socketModule = require('../socket');
 
 // ══════════════════════════════════════════════════════
 // User / Profile Controller
@@ -252,6 +253,13 @@ exports.followUser = async (req, res) => {
     });
     await User.findByIdAndUpdate(currentUserId, {
       $push: { following: id },
+    });
+
+    const io = socketModule.getIO();
+    io.to(id.toString()).emit('new_notification', {
+      type: 'follow',
+      message: `@${req.user.username} started following you.`,
+      userId: currentUserId
     });
 
     res.status(200).json({
